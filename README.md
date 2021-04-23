@@ -1,4 +1,4 @@
-fork plugin of C2D03041's awesome plugin
+fork of C2D03041's awesome plugin
 ===
 for Barcode Network
 
