@@ -103,7 +103,7 @@ public class HiddenStringUtil {
 
 		int start = input.indexOf(SEQUENCE_HEADER);
 		int end = input.indexOf(SEQUENCE_FOOTER);
-		System.out.println("Got start and end: "+start+", "+end);
+		//System.out.println("Got start and end: "+start+", "+end);
 
 		if (start < 0 || end < 0) {
 			return null;

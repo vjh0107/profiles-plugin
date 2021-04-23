@@ -124,7 +124,7 @@ public class ProfilesCommand2 extends BukkitEventFSM<ProfilesCommandState> imple
 				Player player = (Player) event.getWhoClicked();
 				event.setCancelled(true);
 				Integer slotClicked = event.getRawSlot();
-				System.out.println("Got click event "+event+" -- "+slotClicked);
+				//System.out.println("Got click event "+event+" -- "+slotClicked);
 				if(slotClicked == -999) {
 					return null;
 				}
@@ -152,8 +152,8 @@ public class ProfilesCommand2 extends BukkitEventFSM<ProfilesCommandState> imple
 				Player player = (Player) event.getWhoClicked();
 
 				Triplet<@NotNull Boolean, UUID, UUID> cont = this.verifyInventoryClickEvent(event, player, s, "CHAR_SLOT", true);
-				System.out.println("Got triplet in mainOpened transition: "+cont);
-				System.out.println("Current state: "+s);
+				//System.out.println("Got triplet in mainOpened transition: "+cont);
+				//System.out.println("Current state: "+s);
 
 				Boolean validationPassed = cont.getValue0();
 				UUID newUuid = cont.getValue1();
@@ -268,14 +268,14 @@ public class ProfilesCommand2 extends BukkitEventFSM<ProfilesCommandState> imple
 		Integer slotClicked = event.getRawSlot();
 		ItemStack clicked = event.getCurrentItem(); // The item that was clicked
 
-		System.out.println("Checking clicked "+clicked+" -- slot: "+slotClicked);
+		//System.out.println("Checking clicked "+clicked+" -- slot: "+slotClicked);
 		if(clicked == null || slotClicked == -999) { // out of the inventory
 			return Triplet.with(false, null, null);
 		}
 
 		ChestGui<UUID> gui = this.guiMap.get(player);
 		String legendName = gui.getLegendNameBySlot(slotClicked);
-		System.out.println("Got legend name: "+legendName);
+		//System.out.println("Got legend name: "+legendName);
 		if(!legendType.equals(legendName)) {
 			System.out.println("Not a valid state change, rejecting this transition");
 			return Triplet.with(false, null, null);
@@ -283,7 +283,7 @@ public class ProfilesCommand2 extends BukkitEventFSM<ProfilesCommandState> imple
 
 		UUID targetUuid = HiddenStringUtil.getLore(clicked, UUID.class);
 
-		System.out.println("Got clicked uuid "+targetUuid);
+		//System.out.println("Got clicked uuid "+targetUuid);
 
 		if(doCreate && targetUuid == null) {
 			UUID genuineUUID = playerProfilesDAO.getGenuineUUID(player);
@@ -518,7 +518,7 @@ public class ProfilesCommand2 extends BukkitEventFSM<ProfilesCommandState> imple
 		if (config.getBoolean("options.disableMojangProfile", true)) {
 			UUID genuineUuid = playerProfilesDAO.getGenuineUUID(player);
 			if (player.getUniqueId().equals(genuineUuid)) {
-				event.getPlayer().sendMessage(ChatColor.RED + "Cancelling your movement because you must choose a profile first");
+				event.getPlayer().sendMessage(ChatColor.GRAY + "[BN-PROFILE] 캐릭터를 고르지 않아 이동이 취소됩니다.");
 				event.setCancelled(true);
 			}
 		}
@@ -532,7 +532,7 @@ public class ProfilesCommand2 extends BukkitEventFSM<ProfilesCommandState> imple
 			if(config.getBoolean("options.disableMojangProfile", true)) {
 				UUID genuineUuid = playerProfilesDAO.getGenuineUUID(player);
 				if(player.getUniqueId().equals(genuineUuid)) {
-					player.sendMessage(ChatColor.GRAY + "Opening the profile selector automatically...");
+					//player.sendMessage(ChatColor.GRAY + "Opening the profile selector automatically...");
 					String[] args = {};
 					this.onCommand(player, null, "", args);
 				}
@@ -542,13 +542,13 @@ public class ProfilesCommand2 extends BukkitEventFSM<ProfilesCommandState> imple
 
 	@EventHandler
 	public void onPlayerConnect(PlayerUUIDOverrideEvent event) {
-		System.out.println("GOT PLAYER CONNECT EVENT");
+		//System.out.println("GOT PLAYER CONNECT EVENT");
 		Player player = event.getPlayer();
 		Bukkit.getScheduler().runTaskLater(plugin, bukkitTask -> {
 			if(config.getBoolean("options.disableMojangProfile", true)) {
 				UUID genuineUuid = playerProfilesDAO.getGenuineUUID(player);
 				if(player.getUniqueId().equals(genuineUuid)) {
-					player.sendMessage(ChatColor.GRAY + "Opening the profile selector automatically...");
+					//player.sendMessage(ChatColor.GRAY + "Opening the profile selector automatically...");
 					String[] args = {};
 					this.onCommand(event.getPlayer(), null, "", args);
 				}

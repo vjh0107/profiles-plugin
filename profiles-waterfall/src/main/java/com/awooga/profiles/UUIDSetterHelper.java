@@ -83,7 +83,7 @@ public class UUIDSetterHelper {
 			profileDao.setUserTargetServer(player, null);
 			System.out.println("UUID update success");
 			UUID originalUUID = profileDao.getOriginalUUID(player).get();
-			player.sendMessage(new TextComponent(ChatColor.GREEN + "Your UUID has been set to: " + profileDao.getRealUUID(originalUUID).get()));
+			//player.sendMessage(new TextComponent(ChatColor.GREEN + "Your UUID has been set to: " + profileDao.getRealUUID(originalUUID).get()));
 		});
 	}
 
